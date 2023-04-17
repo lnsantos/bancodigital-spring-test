@@ -1,17 +1,16 @@
 package com.zupedu.bancodigital.model.internal;
 
+import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
-@Table(name = "account_holder")
-public class AccountHolderModel {
+@Table(name = "account_interest")
+public class UserInterestModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +19,19 @@ public class AccountHolderModel {
     @NotBlank
     private String name;
 
-    @Past
-    private LocalDate dateBirth;
+    @NotBlank
+    @Email
+    private String email;
 
     @NotBlank
     @CPF
     private String document;
 
-    @Positive
-    private BigDecimal patrimonyRegistered;
+    @NotBlank
+    private String protocol = UUID.randomUUID().toString();
+
+    public String getProtocol() { return protocol; }
+    private String cep;
 
     public Long getId() {
         return id;
@@ -46,12 +49,12 @@ public class AccountHolderModel {
         this.name = name;
     }
 
-    public LocalDate getDateBirth() {
-        return dateBirth;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDateBirth(LocalDate dateBirth) {
-        this.dateBirth = dateBirth;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDocument() {
@@ -62,11 +65,11 @@ public class AccountHolderModel {
         this.document = document;
     }
 
-    public BigDecimal getPatrimonyRegistered() {
-        return patrimonyRegistered;
+    public String getCep() {
+        return cep;
     }
 
-    public void setPatrimonyRegistered(BigDecimal patrimonyRegistered) {
-        this.patrimonyRegistered = patrimonyRegistered;
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 }
